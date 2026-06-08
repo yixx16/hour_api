@@ -1,4 +1,36 @@
-obj
-bin
-/.vscode
+# Carpetas de compilación
+bin/
+obj/
+.vs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Archivos de usuario
+*.user
+*.suo
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Ambiente
 .env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Archivos temporales
+.temp/
+tmp/
+temp/
