@@ -9,6 +9,8 @@ namespace Horas.Entities
         public int H { get; set; }
         public int M { get; set; }
         public int S { get; set; }
+        
+        public DateTime LastModified {get; set;} = DateTime.Now;
 
         public Hour(int h, int m, int s)
         {

@@ -3,7 +3,7 @@ namespace Horas
     
 
 
-    public class HourRequest
+    public class SumRequest
     {
         public int H1 {get;set;}
         public int M1 {get;set;}

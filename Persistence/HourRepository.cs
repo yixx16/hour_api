@@ -21,10 +21,12 @@ namespace Horas.Persistence
             _hourContext.Hours.Add(hour);
         }
 
-        public void Update(Hour hour)
+        public Hour Update(Hour hour)
         {
             var h = GetHourByID(hour.Id);
             h = hour;
+            h.LastModified = DateTime.Now;
+            return h;            
         }
         public void Delete(Hour hour)
         {

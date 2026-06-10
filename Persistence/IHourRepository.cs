@@ -7,7 +7,7 @@ namespace Horas.Persistence
         IEnumerable<Hour> GetHours();
         Hour GetHourByID(int HourId);
         void Add(Hour hour);
-        void Update(Hour hour);
+        Hour Update(Hour hour);
         void Delete(Hour hour);
         void Save();
 
