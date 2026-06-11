@@ -1,7 +1,5 @@
-namespace Horas
+namespace Horas.Request
 {
-    
-
 
     public class PutRequest
     {

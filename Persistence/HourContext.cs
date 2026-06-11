@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Horas.Entities;
+using Horas.Core.Entities;
 
 namespace Horas.Persistence
 {

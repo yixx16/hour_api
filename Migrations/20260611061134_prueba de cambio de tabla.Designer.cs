@@ -3,6 +3,7 @@ using System;
 using Horas.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace horas.Migrations
 {
     [DbContext(typeof(HourContext))]
-    partial class HourContextModelSnapshot : ModelSnapshot
+    [Migration("20260611061134_prueba de cambio de tabla")]
+    partial class pruebadecambiodetabla
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace horas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hours");
+                    b.ToTable("Houras");
                 });
 #pragma warning restore 612, 618
         }

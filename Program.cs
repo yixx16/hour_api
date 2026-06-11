@@ -1,4 +1,5 @@
-﻿using Horas.Controllers;
+﻿
+using Horas.Application.Middleware;
 using Horas.Persistence;
 using Horas.Services;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace Horas
             builder.Services.AddSwaggerGen();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddControllers();
+            //builder.Services.AddExceptionHandler();
 
             //db
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -26,21 +28,27 @@ namespace Horas
             builder.Services.AddScoped<IHourRepository, HourRepository>();
             builder.Services.AddScoped<HourService>();
 
-
+            builder.Services.AddHttpLogging((o) => {});
             var app = builder.Build();
 
             app.UseSwagger();
             app.UseSwaggerUI();
-
+            app.UseHttpLogging();
+            app.UseMiddleware<ExceptionHandlerMiddleWare>();
+            
+            
+            //app.UseExceptionHandler();
+            
             //configurar el middleware para capturar excepciones de not found y demas, para evitar usar try catch en controllers
 
             app.MapControllers();
 
 
             Console.WriteLine("Ya esta corriendo mi api :)))");
+            app.MapGet("", () => "Hello world!");
             /* params hands on lab
             path and query params, with common uses
-            app.MapGet("", () => "Hello world!");
+            
             app.MapGet("/users/{userId}/posts/{slug}", (int userId, string slug) =>
             {
                 return $"Hello {userId}, the post {slug} isn't avalaible right now :/, try later...";
