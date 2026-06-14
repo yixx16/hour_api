@@ -1,0 +1,39 @@
+@page "{id:int}"
+@model EditarModel
+@{
+    ViewData["Title"] = $"Editar #{Model.Input.Id}";
+}
+
+<section class="page-head rise">
+    <div>
+        <h1 class="page-title">Editar registro <span class="title-id">#@Model.Input.Id</span></h1>
+        <p class="page-sub">Última modificación: @Model.LastModified.ToLocalTime().ToString("dd/MM/yyyy · HH:mm")</p>
+    </div>
+    <a class="btn btn-ghost" asp-page="/Index">Volver</a>
+</section>
+
+<form method="post" class="panel calc rise">
+    <input type="hidden" asp-for="Input.Id" />
+
+    <fieldset class="operand operand-single">
+        <legend>Duración</legend>
+        <div class="time-group">
+            <input asp-for="Input.H" type="number" min="0" max="999" inputmode="numeric" aria-label="Horas" />
+            <span class="colon">:</span>
+            <input asp-for="Input.M" type="number" min="0" max="59" inputmode="numeric" aria-label="Minutos" />
+            <span class="colon">:</span>
+            <input asp-for="Input.S" type="number" min="0" max="59" inputmode="numeric" aria-label="Segundos" />
+        </div>
+        <div class="time-labels"><span>horas</span><span>min</span><span>seg</span></div>
+    </fieldset>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <p class="form-error">Revisa los valores: minutos y segundos van de 0 a 59.</p>
+    }
+
+    <div class="calc-actions">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a class="btn btn-secondary" asp-page="/Index">Cancelar</a>
+    </div>
+</form>

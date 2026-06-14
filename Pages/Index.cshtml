@@ -1,0 +1,56 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Historial";
+}
+
+<section class="page-head rise">
+    <div>
+        <h1 class="page-title">Historial</h1>
+        <p class="page-sub">@Model.Hours.Count @(Model.Hours.Count == 1 ? "registro guardado" : "registros guardados")</p>
+    </div>
+    <a class="btn btn-primary" asp-page="/Calculadora">Nueva suma</a>
+</section>
+
+@if (Model.Hours.Count == 0)
+{
+    <section class="empty rise">
+        <p class="empty-title">Aún no hay registros</p>
+        <p class="empty-text">Suma dos duraciones para crear tu primer registro.</p>
+        <a class="btn btn-secondary" asp-page="/Calculadora">Ir a la calculadora</a>
+    </section>
+}
+else
+{
+    <section class="panel ledger rise">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-id">N.º</th>
+                    <th class="col-dur">Duración</th>
+                    <th class="col-date">Última modificación</th>
+                    <th class="col-actions" aria-label="Acciones"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var h in Model.Hours)
+                {
+                    <tr>
+                        <td class="col-id"><span class="id-chip">#@h.Id</span></td>
+                        <td class="col-dur"><span class="dur">@($"{h.H:D2}:{h.M:D2}:{h.S:D2}")</span></td>
+                        <td class="col-date">@h.LastModified.ToLocalTime().ToString("dd/MM/yyyy · HH:mm")</td>
+                        <td class="col-actions">
+                            <div class="row-actions">
+                                <a class="btn btn-ghost" asp-page="/Editar" asp-route-id="@h.Id">Editar</a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@h.Id"
+                                      onsubmit="return confirm('¿Eliminar el registro #@h.Id?');">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+}

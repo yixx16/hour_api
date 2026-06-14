@@ -1,0 +1,66 @@
+@page
+@model CalculadoraModel
+@{
+    ViewData["Title"] = "Calculadora";
+}
+
+<section class="page-head rise">
+    <div>
+        <h1 class="page-title">Calculadora</h1>
+        <p class="page-sub">Suma dos duraciones. El resultado se guarda en el historial.</p>
+    </div>
+</section>
+
+@if (Model.Resultado is not null)
+{
+    <section class="result rise">
+        <p class="result-label">Resultado</p>
+        <p class="result-value">@($"{Model.Resultado.H:D2}:{Model.Resultado.M:D2}:{Model.Resultado.S:D2}")</p>
+        <p class="result-note">Guardado como registro <strong>#@Model.Resultado.Id</strong>.</p>
+        <div class="result-actions">
+            <a class="btn btn-secondary" asp-page="/Index">Ver historial</a>
+            <a class="btn btn-ghost" asp-page="/Calculadora">Sumar otra</a>
+        </div>
+    </section>
+}
+
+<form method="post" class="panel calc rise">
+    <div class="operands">
+        <fieldset class="operand">
+            <legend>Operando A</legend>
+            <div class="time-group">
+                <input asp-for="A.H" type="number" min="0" max="999" inputmode="numeric" aria-label="Horas A" />
+                <span class="colon">:</span>
+                <input asp-for="A.M" type="number" min="0" max="59" inputmode="numeric" aria-label="Minutos A" />
+                <span class="colon">:</span>
+                <input asp-for="A.S" type="number" min="0" max="59" inputmode="numeric" aria-label="Segundos A" />
+            </div>
+            <div class="time-labels"><span>horas</span><span>min</span><span>seg</span></div>
+        </fieldset>
+
+        <div class="plus" aria-hidden="true">+</div>
+
+        <fieldset class="operand">
+            <legend>Operando B</legend>
+            <div class="time-group">
+                <input asp-for="B.H" type="number" min="0" max="999" inputmode="numeric" aria-label="Horas B" />
+                <span class="colon">:</span>
+                <input asp-for="B.M" type="number" min="0" max="59" inputmode="numeric" aria-label="Minutos B" />
+                <span class="colon">:</span>
+                <input asp-for="B.S" type="number" min="0" max="59" inputmode="numeric" aria-label="Segundos B" />
+            </div>
+            <div class="time-labels"><span>horas</span><span>min</span><span>seg</span></div>
+        </fieldset>
+    </div>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <p class="form-error">Revisa los valores: minutos y segundos van de 0 a 59.</p>
+    }
+
+    <div class="calc-actions">
+        <button type="submit" class="btn btn-primary">Sumar y guardar</button>
+    </div>
+
+    <p class="calc-hint">El total se normaliza dentro de un ciclo de 24 horas.</p>
+</form>

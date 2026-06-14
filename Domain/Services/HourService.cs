@@ -14,6 +14,10 @@ namespace Horas.Domain.Services
         {
             return HourRepository.GetHourByID(id) ?? throw new ArgumentException("Hora inexistente en la db");
         }
+        public IEnumerable<Hour> GetAll()
+        {
+            return HourRepository.GetHours();
+        }
         public Hour Sum(SumRequest request)
         {
             //persistencia
@@ -22,6 +26,7 @@ namespace Horas.Domain.Services
                 +
                 new Hour(request.H2, request.M2, request.S2);
             HourRepository.Create(hour);
+            HourRepository.Save();
             return hour;
         }
         public Hour Update(PutRequest request)
@@ -34,7 +39,12 @@ namespace Horas.Domain.Services
         }
 
 
-        public void Del(int id) { }
+        public void Del(int id)
+        {
+            var hour = Get(id);
+            HourRepository.Delete(hour);
+            HourRepository.Save();
+        }
     }
 
 

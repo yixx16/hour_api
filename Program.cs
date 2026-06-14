@@ -1,5 +1,4 @@
-﻿
-using Horas.Application.Middleware;
+﻿using Horas.Shared.Middleware;
 using Horas.Infraestructure.Persistence;
 using Horas.Domain.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +15,7 @@ namespace Horas
             builder.Services.AddSwaggerGen();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddControllers();
+            builder.Services.AddRazorPages();
             //builder.Services.AddExceptionHandler();
 
             //db
@@ -35,6 +35,7 @@ namespace Horas
             app.UseSwaggerUI();
             app.UseHttpLogging();
             app.UseMiddleware<ExceptionHandlerMiddleWare>();
+            app.UseStaticFiles();
             
             
             //app.UseExceptionHandler();
@@ -42,8 +43,9 @@ namespace Horas
             //configurar el middleware para capturar excepciones de not found y demas, para evitar usar try catch en controllers
 
             app.MapControllers();
+            app.MapRazorPages();
 
-            app.MapGet("", () => "Hello world!");
+            //app.MapGet("", () => "Hello world!"); //la raiz "/" ahora la sirve la pagina Index
             /* params hands on lab
             path and query params, with common uses
             

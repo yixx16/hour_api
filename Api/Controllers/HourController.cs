@@ -13,6 +13,13 @@ namespace Horas.Api.Controllers
     {
         //mirar la inyeccion de dependencias luego
         private readonly HourService HourS = hourService;
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Hour>> GetAll()
+        {
+            return Ok(HourS.GetAll());
+        }
+
         [HttpGet("{id:int}")]
         public ActionResult<Hour> Get([FromRoute] int id)
         {
@@ -34,6 +41,13 @@ namespace Horas.Api.Controllers
         {
             var h = HourS.Update(request);
             return Ok(new { hour = h });
+        }
+
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            HourS.Del(id);
+            return NoContent();
         }
     }
 
