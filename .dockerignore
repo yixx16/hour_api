@@ -1,0 +1,26 @@
+# Artefactos de compilación
+bin/
+obj/
+
+# IDE / control de versiones
+.vs/
+.vscode/
+.idea/
+.git/
+.gitignore
+
+# Archivos propios de Docker
+Dockerfile
+.dockerignore
+
+# Secretos / ambiente local
+.env
+.env.local
+.env.*.local
+
+# Logs y temporales
+logs/
+*.log
+.temp/
+tmp/
+temp/

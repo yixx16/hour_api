@@ -66,7 +66,7 @@ namespace Horas
 
             */
 
-            app.Run("http://localhost:4050/");
+            app.Run("http://0.0.0.0:4050/");
         }
     }
 }
